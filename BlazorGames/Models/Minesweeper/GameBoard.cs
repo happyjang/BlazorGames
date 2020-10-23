@@ -23,6 +23,10 @@ namespace BlazorGames.Models.Minesweeper
             }
         }
 
+        public GameBoard()
+        {
+            Reset();
+        }
         public void Reset()
         {
             Initialize(Width, Height, MineCount);
