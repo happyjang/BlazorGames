@@ -1,4 +1,4 @@
-namespace BlazorGames.Models.Minesweeper
+﻿namespace BlazorGames.Models.Minesweeper
 {
     public class Panel
     {
@@ -16,7 +16,6 @@ namespace BlazorGames.Models.Minesweeper
             X = x;
             Y = y;
         }
-
         public void Flag()
         {
             if (!IsRevealed)

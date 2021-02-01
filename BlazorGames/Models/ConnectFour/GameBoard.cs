@@ -1,4 +1,4 @@
-using BlazorGames.Models.ConnectFour.Enums;
+﻿using BlazorGames.Models.ConnectFour.Enums;
 using System.Collections.Generic;
 
 namespace BlazorGames.Models.ConnectFour
@@ -7,7 +7,7 @@ namespace BlazorGames.Models.ConnectFour
     {
         public GamePiece[,] Board { get; set; }
 
-        public PieceColor CurrentTurn { get; set; }
+        public PieceColor CurrentTurn { get; set; } = PieceColor.Red;
 
         public WinningPlay WinningPlay { get; set; }
 
@@ -33,7 +33,6 @@ namespace BlazorGames.Models.ConnectFour
             CurrentTurn = PieceColor.Red;
             WinningPlay = null;
         }
-
         public void PieceClicked(int x, int y)
         {
             //If a winning play has already been made, don't do anything.
@@ -65,15 +64,15 @@ namespace BlazorGames.Models.ConnectFour
             }
         }
 
+        public bool IsGamePieceAWinningPiece(int i, int j)
+        {
+            return WinningPlay?.WinningMoves?.Contains($"{i},{j}") ?? false;
+        }
         public void SwitchTurns()
         {
             CurrentTurn = CurrentTurn == PieceColor.Red ? PieceColor.Yellow : PieceColor.Red;
         }
 
-        public bool IsGamePieceAWinningPiece(int i, int j)
-        {
-            return WinningPlay?.WinningMoves?.Contains($"{i},{j}") ?? false;
-        }
         private WinningPlay GetWinner()
         {
             WinningPlay winningPlay = null;
@@ -163,6 +162,4 @@ namespace BlazorGames.Models.ConnectFour
             return null;
         }
     }
-
-
 }

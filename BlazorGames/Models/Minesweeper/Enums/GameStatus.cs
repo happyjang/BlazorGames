@@ -1,4 +1,4 @@
-namespace BlazorGames.Models.Minesweeper.Enums
+﻿namespace BlazorGames.Models.Minesweeper.Enums
 {
     public enum GameStatus
     {

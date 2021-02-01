@@ -1,4 +1,4 @@
-using BlazorGames.Models.Minesweeper.Enums;
+﻿using BlazorGames.Models.Minesweeper.Enums;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -7,30 +7,24 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace BlazorGames.Models.Minesweeper
 {
+    
+
     public class GameBoard
     {
         public int Width { get; set; } = 16;
         public int Height { get; set; } = 16;
         public int MineCount { get; set; } = 40;
-        public List<Panel> Panels { get; set; }
-        public GameStatus Status { get; set; }
         public Stopwatch Stopwatch { get; set; }
+        public List<Panel> Panels { get; set; }
+        public GameStatus Status { get; set; } 
         public int MinesRemaining
         {
             get
-            {
-                return MineCount - Panels.Where(x => x.IsFlagged).Count();
-            }
+            { return MineCount - Panels.Where(p => p.IsFlagged).Count(); }
         }
-
         public GameBoard()
         {
             Reset();
-        }
-        public void Reset()
-        {
-            Initialize(Width, Height, MineCount);
-            Stopwatch = new Stopwatch();
         }
         public void Initialize(int width, int height, int mines)
         {
@@ -51,7 +45,11 @@ namespace BlazorGames.Models.Minesweeper
 
             Status = GameStatus.AwaitingFirstMove;
         }
-
+        public void Reset()
+        {
+            Initialize(Width, Height, MineCount);
+            Stopwatch = new Stopwatch();
+        }
         public List<Panel> GetNeighbors(int x, int y)
         {
             var nearbyPanels = Panels.Where(panel => panel.X >= (x - 1)
@@ -63,7 +61,6 @@ namespace BlazorGames.Models.Minesweeper
 
             return nearbyPanels.Except(currentPanel).ToList();
         }
-
         public void FirstMove(int x, int y)
         {
             Random rand = new Random();
@@ -105,9 +102,7 @@ namespace BlazorGames.Models.Minesweeper
 
             //Mark the game as started.
             Status = GameStatus.InProgress;
-            Stopwatch.Start();
         }
-
         public void MakeMove(int x, int y)
         {
             if (Status == GameStatus.AwaitingFirstMove)
@@ -116,7 +111,6 @@ namespace BlazorGames.Models.Minesweeper
             }
             RevealPanel(x, y);
         }
-
         public void RevealPanel(int x, int y)
         {
             //Step 1: Find and reveal the clicked panel
@@ -147,7 +141,6 @@ namespace BlazorGames.Models.Minesweeper
                   .ToList()
                   .ForEach(x => x.IsRevealed = true);
         }
-
         public void RevealZeros(int x, int y)
         {
             //Get all neighbor panels
@@ -166,7 +159,6 @@ namespace BlazorGames.Models.Minesweeper
                 }
             }
         }
-
         private void CompletionCheck()
         {
             var hiddenPanels = Panels.Where(x => !x.IsRevealed)
@@ -178,10 +170,9 @@ namespace BlazorGames.Models.Minesweeper
             if (!hiddenPanels.Except(minePanels).Any())
             {
                 Status = GameStatus.Completed;
-                Stopwatch.Stop();
+                Stopwatch.Stop(); //New line
             }
         }
-
         public void FlagPanel(int x, int y)
         {
             if (MinesRemaining > 0)
@@ -191,5 +182,13 @@ namespace BlazorGames.Models.Minesweeper
                 panel.Flag();
             }
         }
+            
+    public void FirstMove()
+    {
+        //...Implementation
+        Stopwatch.Start();
+    }
+    
+    
     }
 }

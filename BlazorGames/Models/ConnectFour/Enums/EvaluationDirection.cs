@@ -1,4 +1,4 @@
-namespace BlazorGames.Models.ConnectFour.Enums
+﻿namespace BlazorGames.Models.ConnectFour.Enums
 {
     public enum EvaluationDirection
     {

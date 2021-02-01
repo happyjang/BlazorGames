@@ -1,4 +1,4 @@
-using BlazorGames.Models.ConnectFour.Enums;
+﻿using BlazorGames.Models.ConnectFour.Enums;
 using System.Collections.Generic;
 
 namespace BlazorGames.Models.ConnectFour
